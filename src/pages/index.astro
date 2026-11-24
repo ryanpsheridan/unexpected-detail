@@ -7,8 +7,8 @@
   The story, top to bottom:
   1. Dark. The falling line, full width, rises as a waveform, settles, and
      one line tips over; "Curiosity flips the frame." rises in beneath it.
-     As the page scrolls away, "flips" turns over like a card and the page
-     turns light with it. Nothing pins.
+     From the first bit of scrolling, "flips" turns over like a card and the
+     page turns light with it. Nothing pins.
   2. "A podcast built around what rarely makes the final edit." arrives
      word by word, a rule draws across beneath it, and the note settles
      under its right end. Then the page moves on.
@@ -281,9 +281,10 @@ const episodes = [
     const fr = float.getBoundingClientRect();
     const mr = marcy.getBoundingClientRect();
     return {
-      // As the hero scrolls away, "flips" turns over and the page turns
-      // light with it, over the first half screen of scrolling.
-      flip: ease(clamp((-hr.top - vh * 0.04) / (vh * 0.5))),
+      // As soon as the page starts to scroll, "flips" turns over and the
+      // page turns light with it, done within the first third of a screen
+      // while the headline is still in view.
+      flip: ease(clamp(-hr.top / (vh * 0.3))),
       words: clamp(fp / 0.36),
       rule: ease(clamp((fp - 0.42) / 0.2)),
       note: ease(clamp((fp - 0.62) / 0.16)),
