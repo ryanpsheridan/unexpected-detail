@@ -429,13 +429,15 @@ const episodes = [
     font-weight: 400;
     cursor: default;
   }
-  /* The headline and its link rise in once the line has settled. */
+  /* One sequence, about two seconds: the row rises left to right and
+     settles, the line tips, and the headline rises as it lands, the link
+     just behind. */
   .js .home :is(.hero-h, .hero-go) {
     opacity: 0;
-    animation: ud-in 1.1s cubic-bezier(0.16, 1, 0.3, 1) 2.1s forwards;
+    animation: ud-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) 1.45s forwards;
   }
   .js .home .hero-go {
-    animation-delay: 2.5s;
+    animation-delay: 1.62s;
   }
 
   /* "flips": a card with the word on both faces. The scroll turns it over
@@ -461,7 +463,7 @@ const episodes = [
   /* A tease once the headline has settled: "flips" tips back a little and
      drops into place, so the eye finds it before the scroll turns it. */
   .js .home .flipword {
-    animation: ud-tease 1.1s cubic-bezier(0.34, 0, 0.2, 1) 3.5s;
+    animation: ud-tease 1.1s cubic-bezier(0.34, 0, 0.2, 1) 2.7s;
   }
   @keyframes ud-tease {
     0%,
@@ -483,13 +485,13 @@ const episodes = [
      their position), settle into an even row, then one tips over. */
   .js .home .hero-lines span {
     --h: calc(0.2 + 0.8 * sin(var(--x) * 41) * sin(var(--x) * 41));
-    animation: ud-wave 1.6s cubic-bezier(0.16, 1, 0.3, 1) calc(0.15s + var(--x) * 0.6s) both;
+    animation: ud-wave 1.1s cubic-bezier(0.16, 1, 0.3, 1) calc(0.1s + var(--x) * 0.4s) both;
   }
   .js .home .hero-lines .fall {
     transform: none;
     animation:
-      ud-wave 1.6s cubic-bezier(0.16, 1, 0.3, 1) calc(0.15s + var(--x) * 0.6s) both,
-      ud-tip 1.1s cubic-bezier(0.55, 0, 0.25, 1) 2s both;
+      ud-wave 1.1s cubic-bezier(0.16, 1, 0.3, 1) calc(0.1s + var(--x) * 0.4s) both,
+      ud-tip 0.85s cubic-bezier(0.55, 0, 0.25, 1) 1.15s both;
   }
   @keyframes ud-wave {
     0% {
