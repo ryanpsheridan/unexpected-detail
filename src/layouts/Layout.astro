@@ -1,0 +1,62 @@
+---
+/*
+  The page shell for the unexpected detail site. Trimmed from the portfolio's
+  layout: the same tokens, global styles, Geist and smooth scrolling, without
+  the portfolio's analytics, schema or theme switching. Every page is
+  private (noindex) and light.
+*/
+interface Props {
+  title: string;
+  description?: string;
+  /** Kept so pages read the same as they did in the portfolio; always noindex here. */
+  noindex?: boolean;
+  /** Kept for the same reason; the site is always light. */
+  theme?: "light";
+}
+
+import { tokensToCss } from "../data/tokens";
+import "../styles/global.css";
+
+// Every token as a custom property on :root, in place before the first paint.
+const tokenCss = tokensToCss();
+const { title, description = "The brand identity for the unexpected detail podcast." } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" data-theme="light" data-theme-pinned="">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <style is:inline set:html={tokenCss} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <slot />
+    <script>
+      import Lenis from "lenis";
+      import "lenis/dist/lenis.css";
+      // Smooth scrolling, except for anyone who has asked for less motion.
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        const lenis = new Lenis({ lerp: 0.15, smoothWheel: true });
+        const raf = (time: number) => {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        };
+        requestAnimationFrame(raf);
+      }
+    </script>
+  </body>
+</html>
