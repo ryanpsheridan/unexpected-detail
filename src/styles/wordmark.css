@@ -47,3 +47,42 @@
 :where(.site, .site-nav) .wm-pd {
   display: none;
 }
+
+/*
+  The primary logo (Wordmark with `lines`): the falling line fills the open
+  space on the second line, from the left edge of "unexpected" to 0.17em
+  short of the d, 0.45em tall, standing on the baseline. Unscoped (with
+  enough weight to beat the concept page's .ub rules), since the nav and
+  the concept page both show it. Strokes are a touch heavier than the
+  cover's hairline, and never under 1px.
+*/
+.wm.wm--lined .wm-b {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+}
+.wm.wm--lined .wm-lines {
+  /* Stroke and positions snap to whole pixels, so every stroke renders at
+     the same weight instead of some blurring wider than others. */
+  --wl-w: max(1px, round(0.011em, 1px));
+  position: relative;
+  flex: 1;
+  align-self: baseline;
+  height: 0.45em;
+  margin-right: 0.17em;
+}
+.wm.wm--lined .wm-lines > span {
+  position: absolute;
+  bottom: 0;
+  left: round(down, calc(var(--x) * (100% - var(--wl-w))), 1px);
+  width: var(--wl-w);
+  height: 100%;
+  background: currentColor;
+  transform-origin: 50% 100%;
+}
+.wm.wm--lined .wm-lines > .wm-fall {
+  transform: rotate(14deg);
+}
+.wm.wm--lined .wm-word {
+  white-space: nowrap;
+}

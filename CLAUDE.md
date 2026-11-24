@@ -65,8 +65,10 @@ From Ryan, and the November 2026 review with Marcy:
   the i and small graphics only: Butter (`#E8CB6A`) on dark grounds, Mustard
   (`#B8890F`, 3:1 on paper) on light ones. If an accent color is ever needed
   for text on light, Honey (`#7D6118`, 5.5:1 on paper) is the darker secondary.
-- The wordmark sits top left in the nav, as the staggered two-line lockup
-  without the tagline.
+- The primary logo is the staggered two-line wordmark with the falling line
+  set in the open space beside "detail" (`<Wordmark lines />`). It sits top
+  left in the nav, with half the strokes (`count={17}`) so the row stays open
+  at small sizes.
 - No eyebrow labels or section numbers above headings. Numbers appear only
   where they carry information, like episode numbers.
 - Product facts, audience and voice live in `PRODUCT.md`.

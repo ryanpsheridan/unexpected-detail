@@ -19,15 +19,40 @@ interface Props {
   size?: string;
   /** Lowercase centered single line, for tight horizontal spaces. */
   line?: boolean;
+  /**
+   * The primary logo: the falling line set in the open space beside
+   * "detail", from the left edge of "unexpected" to just short of the d.
+   * Styles in src/styles/wordmark.css.
+   */
+  lines?: boolean;
+  /** Strokes in the row. Small sizes (the nav) use half, so the row stays open. */
+  count?: number;
   class?: string;
   style?: string;
 }
-const { size = "12cqi", line = false, class: cls, style = "" } = Astro.props;
+const { size = "12cqi", line = false, lines = false, count = 34, class: cls, style = "" } = Astro.props;
+// The primary logo's row: 34 strokes with the 23rd fallen, as drawn; the
+// fallen one keeps its place (about two thirds along) at any count.
+const LINE_COUNT = count;
+const LINE_FALL = Math.round((count - 1) * (22 / 33));
 ---
 
 <span
-  class:list={["wm", { "wm--line": line }, cls]}
+  class:list={["wm", { "wm--line": line, "wm--lined": lines && !line }, cls]}
   style={`font-size:calc(var(--wm-scale, 1) * ${size});${style}`}
   role="img"
   aria-label="unexpected detail"
-><span class="wm-a" aria-hidden="true">unexpected</span><span class="wm-b" aria-hidden="true">deta<span class="wm-i">i</span>l<span class="wm-pd">.</span></span></span>
+><span class="wm-a" aria-hidden="true">unexpected</span>{
+    lines && !line ? (
+      <span class="wm-b" aria-hidden="true">
+        <span class="wm-lines">
+          {Array.from({ length: LINE_COUNT }, (_, i) => (
+            <span class:list={{ "wm-fall": i === LINE_FALL }} style={`--x:${(i / (LINE_COUNT - 1)).toFixed(4)}`} />
+          ))}
+        </span>
+        <span class="wm-word">deta<span class="wm-i">i</span>l<span class="wm-pd">.</span></span>
+      </span>
+    ) : (
+      <span class="wm-b" aria-hidden="true">deta<span class="wm-i">i</span>l<span class="wm-pd">.</span></span>
+    )
+  }</span>
