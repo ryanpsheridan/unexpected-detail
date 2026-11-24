@@ -47,5 +47,5 @@ const xs = Array.from({ length: count }, (_, i) => +(x + i * gap).toFixed(3));
   aria-hidden="true"
   style={`--fall:${angle}deg;${style}`}
 >
-  {xs.map((lx, i) => <rect x={lx} y={y} width={w} height={len} rx={w / 2} fill="currentColor" class={i === fall ? "ud-fall" : undefined} />)}
+  {xs.map((lx, i) => <rect x={lx} y={y} width={w} height={len} rx={w / 2} fill="currentColor" class={i === fall ? "ud-fall" : undefined} style={`--x:${(i / Math.max(1, count - 1)).toFixed(4)}`} />)}
 </svg>
