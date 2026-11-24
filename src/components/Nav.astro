@@ -1,0 +1,190 @@
+---
+/*
+  The site nav, carried over from the portfolio: the name on the left, a
+  menu button on the right, and a full-screen menu. Sticky, 64px tall
+  (--nav-height), so anything else sticky on a page offsets by it.
+
+  A page can recolor it with --nav-bg and --nav-fg (the home page does, so
+  the nav flips with the page from dark to light). Without them it sits on
+  the identity's paper (#faf9f6) in ink.
+*/
+const links = [
+  { href: "/", label: "Home" },
+  { href: "/concept", label: "Concept" },
+  { href: "/round-2", label: "Round 06" },
+  { href: "/round-1", label: "Rounds 01 to 05" },
+];
+const here = Astro.url.pathname.replace(/\/$/, "") || "/";
+---
+
+<nav class="site-nav" aria-label="Site">
+  <div class="nav-inner">
+    <a href="/" class="logo">unexpected detail</a>
+    <button type="button" class="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="site-menu">
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="menu-overlay" id="site-menu" inert>
+  <div class="menu-content">
+    {
+      links.map((l) => (
+        <a href={l.href} class="menu-link" aria-current={l.href === here ? "page" : undefined}>
+          {l.label}
+        </a>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .site-nav {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-nav);
+    height: var(--nav-height);
+    display: flex;
+    align-items: center;
+    padding: 0 var(--page-padding, clamp(16px, 4.4vw, 64px));
+    background: var(--nav-bg, #faf9f6);
+    color: var(--nav-fg, var(--color-text));
+    transition:
+      background-color var(--duration-moderate) var(--ease-standard),
+      color var(--duration-moderate) var(--ease-standard);
+  }
+
+  .nav-inner {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    color: inherit;
+    font-family: var(--font-mono);
+    font-size: var(--text-s);
+    font-weight: var(--weight-regular);
+    letter-spacing: var(--tracking-snug);
+  }
+
+  .logo:hover {
+    color: inherit;
+    opacity: 0.7;
+  }
+
+  .hamburger {
+    position: relative;
+    /* 48px to meet the touch target guideline; the negative margin keeps
+       the bars on the content edge. */
+    width: var(--control-md);
+    height: var(--control-md);
+    margin-right: calc(var(--space-2) * -1);
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    padding: 0;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 20px;
+    height: 1.5px;
+    background: currentColor;
+    transition: transform var(--duration-moderate) var(--ease-standard);
+  }
+
+  .hamburger.active span:first-child {
+    transform: translateY(3.75px) rotate(45deg);
+  }
+
+  .hamburger.active span:last-child {
+    transform: translateY(-3.75px) rotate(-45deg);
+  }
+
+  /* Open, the nav takes the menu's colors so the close button reads. */
+  :global(body.menu-open) .site-nav {
+    background: var(--color-bg);
+    color: var(--color-text);
+  }
+
+  .menu-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-overlay);
+    background: var(--color-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--duration-moderate) var(--ease-standard);
+  }
+
+  .menu-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .menu-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .menu-link {
+    font-size: var(--text-h3);
+    font-weight: var(--weight-regular);
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+    transition: color var(--duration-fast) var(--ease-standard);
+  }
+
+  .menu-link:hover,
+  .menu-link[aria-current="page"] {
+    color: var(--color-text-muted);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-nav,
+    .hamburger span,
+    .menu-overlay {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const hamburger = document.querySelector<HTMLButtonElement>(".site-nav .hamburger")!;
+  const overlay = document.querySelector<HTMLElement>("#site-menu")!;
+
+  // Closed, the menu is inert, so its links stay out of the tab order.
+  // Open, it covers the page: Escape closes it and focus returns to the button.
+  function setMenu(open: boolean) {
+    hamburger.classList.toggle("active", open);
+    overlay.classList.toggle("open", open);
+    overlay.inert = !open;
+    hamburger.setAttribute("aria-expanded", String(open));
+    hamburger.setAttribute("aria-label", open ? "Close menu" : "Menu");
+    document.body.classList.toggle("menu-open", open);
+    document.body.style.overflow = open ? "hidden" : "";
+  }
+
+  hamburger.addEventListener("click", () => setMenu(!overlay.classList.contains("open")));
+  overlay.querySelectorAll(".menu-link").forEach((link) => link.addEventListener("click", () => setMenu(false)));
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && overlay.classList.contains("open")) {
+      setMenu(false);
+      hamburger.focus();
+    }
+  });
+</script>

@@ -1,0 +1,48 @@
+/*
+  The wordmark, unscoped, for pages built on the final identity (the home
+  page). The concept page and round 06 carry their own copies under .ub,
+  with the editor's extra modes; this is the final setting only: Gloock,
+  the detail on the dot of the i. Color the dot with --dot on any ancestor.
+*/
+.wm {
+  --wm-lh: 0.92;
+  --isplit: 0.257em;
+  display: inline-block;
+  font-family: "Gloock", Georgia, serif;
+  font-weight: 400;
+  line-height: var(--wm-lh);
+  letter-spacing: -0.01em;
+  text-align: right;
+  white-space: nowrap;
+  font-kerning: normal;
+  font-synthesis: none;
+}
+.wm-a {
+  display: block;
+  padding-right: 1.2em;
+}
+.wm-b {
+  display: block;
+}
+.wm--line .wm-a,
+.wm--line .wm-b {
+  display: inline;
+  padding: 0;
+}
+.wm--line .wm-a::after {
+  content: " ";
+}
+/* The i keeps its own glyph; above the gap between dot and stem it takes
+   the dot color. */
+.wm-i {
+  display: inline-block;
+  line-height: var(--wm-lh);
+  background: linear-gradient(to bottom, var(--dot, currentColor) 0 var(--isplit), currentColor var(--isplit));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+/* The final identity has no period. */
+.wm-pd {
+  display: none;
+}

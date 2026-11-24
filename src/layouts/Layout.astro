@@ -1,14 +1,15 @@
 ---
 /*
   The page shell for the unexpected detail site. Trimmed from the portfolio's
-  layout: the same tokens, global styles, Geist and smooth scrolling, without
-  the portfolio's analytics, schema or theme switching. Every page is
-  private (noindex) and light.
+  layout: the same tokens, global styles, Geist, the nav and smooth
+  scrolling, without the portfolio's analytics, schema or theme switching.
+  Pages are noindex while the site is private and on every preview
+  (src/data/environment.ts), or when a page asks for it.
 */
 interface Props {
   title: string;
   description?: string;
-  /** Kept so pages read the same as they did in the portfolio; always noindex here. */
+  /** Keep this page out of search even once the site is public. */
   noindex?: boolean;
   /** Kept for the same reason; the site is always light. */
   theme?: "light";
@@ -16,10 +17,13 @@ interface Props {
 
 import { tokensToCss } from "../data/tokens";
 import "../styles/global.css";
+import Nav from "../components/Nav.astro";
+import { BLOCK_INDEXING } from "../data/environment";
 
 // Every token as a custom property on :root, in place before the first paint.
 const tokenCss = tokensToCss();
-const { title, description = "The brand identity for the unexpected detail podcast." } = Astro.props;
+const { title, description = "The brand identity for the unexpected detail podcast.", noindex = false } = Astro.props;
+const robots = BLOCK_INDEXING || noindex ? "noindex, nofollow" : "index, follow";
 ---
 
 <!doctype html>
@@ -29,7 +33,7 @@ const { title, description = "The brand identity for the unexpected detail podca
     <meta name="theme-color" content="#ffffff" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <meta name="robots" content="noindex, nofollow" />
+    <meta name="robots" content={robots} />
     <title>{title}</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
@@ -44,6 +48,7 @@ const { title, description = "The brand identity for the unexpected detail podca
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
+    <Nav />
     <slot />
     <script>
       import Lenis from "lenis";
