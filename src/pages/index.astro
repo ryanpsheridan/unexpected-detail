@@ -460,26 +460,6 @@ const episodes = [
     inset: 0;
     transform: rotateX(calc(var(--fp) * 180deg - 180deg));
   }
-  /* A tease once the headline has settled: "flips" tips back a little and
-     drops into place, so the eye finds it before the scroll turns it. */
-  .js .home .flipword {
-    animation: ud-tease 1.1s cubic-bezier(0.34, 0, 0.2, 1) 2.7s;
-  }
-  @keyframes ud-tease {
-    0%,
-    100% {
-      transform: none;
-    }
-    35% {
-      transform: rotateX(-55deg);
-    }
-    62% {
-      transform: rotateX(12deg);
-    }
-    80% {
-      transform: rotateX(-4deg);
-    }
-  }
 
   /* The loader: the strokes rise to a waveform (heights from a sine of
      their position), settle into an even row, then one tips over. */
@@ -867,7 +847,6 @@ const episodes = [
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .js .home .flipword,
     .js .home .hero-lines span,
     .js .home :is(.hero-h, .hero-go) {
       animation: none;
