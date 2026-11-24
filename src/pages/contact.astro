@@ -10,8 +10,6 @@ import Layout from "../layouts/Layout.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import "../styles/site.css";
 
-const fontsHref = "https://fonts.googleapis.com/css2?family=Gloock&display=swap";
-
 const kinds = [
   { value: "detail", label: "My unexpected detail" },
   { value: "question", label: "A question for a guest" },
@@ -24,14 +22,12 @@ const kinds = [
   title="Contact, unexpected detail"
   description="Send Unexpected Detail your own unexpected detail, a question for a guest, or a note for Marcy."
 >
-  <link rel="stylesheet" href={fontsHref} />
   <main id="main" class="site contact">
     <section class="spread contact-spread" aria-labelledby="contact-h">
       <div class="wrap">
-        <div class="slabel"><span class="num">01</span><h1 id="contact-h">Contact</h1></div>
         <div class="contact-grid">
           <div class="contact-intro">
-            <p class="line">Everyone has one. What’s yours?</p>
+            <h1 id="contact-h" class="line">Tell us something that isn’t in the bio.</h1>
             <p class="note">
               Send us your unexpected detail, a question you’d love to hear a guest answer, or a note for
               Marcy. The next episode might start with it.
@@ -105,7 +101,6 @@ const kinds = [
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 64px clamp(40px, 7vw, 128px);
-    margin-top: clamp(56px, 8vw, 120px);
   }
   .contact-intro .note {
     margin-top: 28px;

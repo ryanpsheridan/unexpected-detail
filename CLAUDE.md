@@ -61,9 +61,15 @@ From Ryan, and the November 2026 review with Marcy:
   spread, and a lot of white space. The page tells the story in order.
   Shared styles are in `src/styles/site.css`.
 - Gloock is for the logo, and for numbering and stats. Everything else is Geist.
-- No gold text, on any ground: it isn't accessible. Butter (`#E8CB6A`) is
-  only the dot of the i. If an accent color is ever needed for text on light,
-  Honey (`#7D6118`, 5.5:1 on paper) is the darker secondary.
+- No gold text, on any ground: it isn't accessible. Yellow is for the dot of
+  the i and small graphics only: Butter (`#E8CB6A`) on dark grounds, Mustard
+  (`#B8890F`, 3:1 on paper) on light ones. If an accent color is ever needed
+  for text on light, Honey (`#7D6118`, 5.5:1 on paper) is the darker secondary.
+- The wordmark sits top left in the nav, as the staggered two-line lockup
+  without the tagline.
+- No eyebrow labels or section numbers above headings. Numbers appear only
+  where they carry information, like episode numbers.
+- Product facts, audience and voice live in `PRODUCT.md`.
 - The home page opens dark and flips to light as the visitor scrolls into
   "Curiosity flips the frame", as one continuous change. The rest stays light.
 - Listener-facing pages leave out the conversation rhythm (the five beats),

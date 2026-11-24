@@ -1,8 +1,8 @@
 /*
   The public site (home and contact): the concept page's quiet system.
   Paper, ink, hairlines, small labels, and a lot of room. Geist for all
-  text; Gloock only for the logo and for numbers. No gold text: butter
-  appears only as the dot of the i.
+  text; Gloock only for the logo and for numbers. No gold text: butter is
+  the dot on dark grounds, Mustard the dot and graphic accent on light.
 
   Pages set their grounds with --bg and --fg on :root (the home page mixes
   them as it flips); everything below reads those two.
@@ -13,11 +13,15 @@
   --ud-paper: #faf9f6;
   --ud-charcoal: #2a2a28;
   --ud-butter: #e8cb6a;
+  /* Yellow for light grounds: 3:1 on paper, for the dot and graphics
+     only. Never text (see CLAUDE.md). */
+  --ud-mustard: #b8890f;
   --bg: var(--ud-paper);
   --fg: var(--ud-ink);
   --muted: color-mix(in srgb, var(--fg) 62%, transparent);
   --rule: color-mix(in srgb, var(--fg) 16%, transparent);
-  --dot: var(--ud-butter);
+  --dot: var(--ud-mustard);
+  --nav-dot: var(--dot);
   --nav-bg: var(--bg);
   --nav-fg: var(--fg);
   --gutter: clamp(16px, 4.4vw, 64px);

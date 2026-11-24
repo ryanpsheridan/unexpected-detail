@@ -1,13 +1,17 @@
 ---
 /*
-  The site nav, carried over from the portfolio: the name on the left, a
-  menu button on the right, and a full-screen menu. Sticky, 64px tall
+  The site nav, carried over from the portfolio: the wordmark on the left
+  (the staggered lockup, as in the concept page's "With the tagline" tile,
+  without the tagline), a menu button on the right, and a full-screen menu. Sticky, 64px tall
   (--nav-height), so anything else sticky on a page offsets by it.
 
   A page can recolor it with --nav-bg and --nav-fg (the home page does, so
   the nav flips with the page from dark to light). Without them it sits on
   the identity's paper (#faf9f6) in ink.
 */
+import Wordmark from "./Wordmark.astro";
+import "../styles/wordmark.css";
+
 const links = [
   { href: "/", label: "Home" },
   { href: "/contact", label: "Contact" },
@@ -18,7 +22,7 @@ const here = Astro.url.pathname.replace(/\/$/, "") || "/";
 
 <nav class="site-nav" aria-label="Site">
   <div class="nav-inner">
-    <a href="/" class="logo">unexpected detail</a>
+    <a href="/" class="logo" aria-label="unexpected detail, home"><Wordmark size="20px" /></a>
     <button type="button" class="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="site-menu">
       <span></span>
       <span></span>
@@ -61,12 +65,13 @@ const here = Astro.url.pathname.replace(/\/$/, "") || "/";
     align-items: center;
   }
 
+  /* The dot: butter on dark grounds, Mustard (#B8890F, 3:1 on paper) on
+     light. A page that changes ground sets --nav-dot to follow it. */
   .logo {
+    display: block;
     color: inherit;
-    font-family: var(--font-mono);
-    font-size: var(--text-s);
-    font-weight: var(--weight-regular);
-    letter-spacing: var(--tracking-snug);
+    line-height: 0;
+    --dot: var(--nav-dot, #b8890f);
   }
 
   .logo:hover {
@@ -113,6 +118,7 @@ const here = Astro.url.pathname.replace(/\/$/, "") || "/";
   :global(body.menu-open) .site-nav {
     background: var(--color-bg);
     color: var(--color-text);
+    --nav-dot: #b8890f;
   }
 
   .menu-overlay {
