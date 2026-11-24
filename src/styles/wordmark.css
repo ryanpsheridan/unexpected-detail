@@ -49,9 +49,10 @@
 }
 
 /*
-  The primary logo (Wordmark with `lines`): the falling line fills the open
-  space on the second line, from the left edge of "unexpected" to 0.17em
-  short of the d, 0.45em tall, standing on the baseline. Unscoped (with
+  The primary logo (Wordmark with `lines`): the falling line sits in the
+  open space on the second line, starting 0.74em in from the left edge of
+  "unexpected" and stopping 0.19em short of the d, 0.46em tall, standing on
+  the baseline. Unscoped (with
   enough weight to beat the concept page's .ub rules), since the nav and
   the concept page both show it. Strokes are a touch heavier than the
   cover's hairline, and never under 1px.
@@ -68,8 +69,9 @@
   position: relative;
   flex: 1;
   align-self: baseline;
-  height: 0.45em;
-  margin-right: 0.17em;
+  height: 0.46em;
+  margin-left: 0.74em;
+  margin-right: 0.19em;
 }
 .wm.wm--lined .wm-lines > span {
   position: absolute;

@@ -67,7 +67,7 @@ From Ryan, and the November 2026 review with Marcy:
   for text on light, Honey (`#7D6118`, 5.5:1 on paper) is the darker secondary.
 - The primary logo is the staggered two-line wordmark with the falling line
   set in the open space beside "detail" (`<Wordmark lines />`). It sits top
-  left in the nav, with half the strokes (`count={17}`) so the row stays open
+  left in the nav, with half the strokes (`count={15}`) so the row stays open
   at small sizes.
 - No eyebrow labels or section numbers above headings. Numbers appear only
   where they carry information, like episode numbers.

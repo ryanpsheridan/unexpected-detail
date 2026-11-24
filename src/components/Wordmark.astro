@@ -21,7 +21,8 @@ interface Props {
   line?: boolean;
   /**
    * The primary logo: the falling line set in the open space beside
-   * "detail", from the left edge of "unexpected" to just short of the d.
+   * "detail", starting in from the left edge of "unexpected" and stopping
+   * just short of the d.
    * Styles in src/styles/wordmark.css.
    */
   lines?: boolean;
@@ -30,11 +31,11 @@ interface Props {
   class?: string;
   style?: string;
 }
-const { size = "12cqi", line = false, lines = false, count = 34, class: cls, style = "" } = Astro.props;
-// The primary logo's row: 34 strokes with the 23rd fallen, as drawn; the
-// fallen one keeps its place (about two thirds along) at any count.
+const { size = "12cqi", line = false, lines = false, count = 30, class: cls, style = "" } = Astro.props;
+// The primary logo's row: 30 strokes with the 18th fallen, as drawn; the
+// fallen one keeps its place (a little past halfway) at any count.
 const LINE_COUNT = count;
-const LINE_FALL = Math.round((count - 1) * (22 / 33));
+const LINE_FALL = Math.round((count - 1) * (17 / 29));
 ---
 
 <span
