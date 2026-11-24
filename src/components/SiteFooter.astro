@@ -1,0 +1,28 @@
+---
+/*
+  The public site's footer, after the concept page's: one quiet row with a
+  hairline above. Reads --rule and --muted from site.css.
+*/
+---
+
+<footer class="site-foot">
+  <div class="wrap foot-row">
+    <p>Curiosity flips the frame.</p>
+    <p class="muted">Apple Podcasts · Spotify · YouTube, from December 2026</p>
+    <p class="muted">@unexpecteddetail</p>
+  </div>
+</footer>
+
+<style>
+  .site-foot {
+    padding-block: 28px;
+    font-size: 13px;
+    border-top: 1px solid var(--rule);
+  }
+  .foot-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px 32px;
+  }
+</style>

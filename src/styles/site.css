@@ -1,0 +1,269 @@
+/*
+  The public site (home and contact): the concept page's quiet system.
+  Paper, ink, hairlines, small labels, and a lot of room. Geist for all
+  text; Gloock only for the logo and for numbers. No gold text: butter
+  appears only as the dot of the i.
+
+  Pages set their grounds with --bg and --fg on :root (the home page mixes
+  them as it flips); everything below reads those two.
+*/
+
+:root:has(.site) {
+  --ud-ink: #141414;
+  --ud-paper: #faf9f6;
+  --ud-charcoal: #2a2a28;
+  --ud-butter: #e8cb6a;
+  --bg: var(--ud-paper);
+  --fg: var(--ud-ink);
+  --muted: color-mix(in srgb, var(--fg) 62%, transparent);
+  --rule: color-mix(in srgb, var(--fg) 16%, transparent);
+  --dot: var(--ud-butter);
+  --nav-bg: var(--bg);
+  --nav-fg: var(--fg);
+  --gutter: clamp(16px, 4.4vw, 64px);
+  --page-padding: var(--gutter);
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+:root:has(.site) body {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.site {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  overflow-x: clip;
+}
+.site :where(h1, h2, h3, p, ul, ol, figure, fieldset) {
+  margin: 0;
+}
+.site :where(ul, ol) {
+  padding: 0;
+  list-style: none;
+}
+.site :where(h1, h2, h3) {
+  color: inherit;
+  font-weight: 300;
+}
+.site a {
+  color: inherit;
+}
+.site .wrap {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+.site .muted {
+  color: var(--muted);
+}
+
+/* Gloock's one job beyond the logo: numbers. */
+.site .num {
+  font-family: "Gloock", Georgia, serif;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+/* Section label: a hairline, a number, a name. As on the concept page. */
+.site .slabel {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.site .slabel .num {
+  font-size: 14px;
+  opacity: 0.6;
+}
+.site .slabel :is(h1, h2, p) {
+  font: inherit;
+  letter-spacing: inherit;
+}
+
+.site .spread {
+  padding-block: clamp(96px, 14vw, 200px);
+}
+
+/* One idea per spread: a large quiet line, and a short note beside it. */
+.site .say {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 40px clamp(40px, 6vw, 112px);
+  align-items: end;
+  margin-top: clamp(56px, 8vw, 120px);
+}
+.site .line {
+  font-size: clamp(36px, 5.2vw, 84px);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  font-weight: 300;
+  max-width: 14ch;
+}
+.site .note {
+  max-width: 38ch;
+  font-size: clamp(15px, 1.15vw, 17px);
+  line-height: 1.6;
+  color: var(--muted);
+}
+.site .note + .note {
+  margin-top: 14px;
+}
+
+/* Text link with an arrow, underlined on a hairline. */
+.site .go {
+  display: inline-flex;
+  gap: 8px;
+  margin-top: 28px;
+  padding-bottom: 4px;
+  font-size: 15px;
+  font-weight: 400;
+  border-bottom: 1px solid currentColor;
+  transition: opacity 0.2s ease;
+}
+.site .go:hover {
+  color: inherit;
+  opacity: 0.6;
+}
+
+/* ---------- fields ---------- */
+.site .field {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+}
+.site .field > span,
+.site .seg legend {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.site :is(input[type="email"], input[type="text"], textarea) {
+  width: 100%;
+  font: inherit;
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--fg);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--rule);
+  border-radius: 0;
+  padding: 10px 0 12px;
+  transition: border-color 0.2s ease;
+}
+.site textarea {
+  resize: vertical;
+  min-height: 7.5em;
+  line-height: 1.5;
+}
+.site :is(input, textarea):focus {
+  outline: none;
+  border-bottom-color: var(--fg);
+}
+.site :is(input, textarea):focus-visible {
+  outline: none;
+  border-bottom: 2px solid var(--fg);
+}
+.site :is(input, textarea)::placeholder {
+  color: var(--muted);
+}
+.site .seg {
+  border: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.site .seg legend {
+  margin-bottom: 14px;
+  padding: 0;
+}
+.site .seg label {
+  cursor: pointer;
+}
+.site .seg input {
+  position: absolute;
+  opacity: 0;
+}
+.site .seg span {
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 1px solid var(--rule);
+  font-size: 15px;
+  font-weight: 400;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+.site .seg input:checked + span {
+  background: var(--fg);
+  color: var(--bg);
+  border-color: var(--fg);
+}
+.site .seg input:focus-visible + span {
+  outline: 2px solid var(--fg);
+  outline-offset: 2px;
+}
+.site .btn-ink {
+  display: inline-flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 26px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--fg);
+  color: var(--bg);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+.site .btn-ink:hover {
+  opacity: 0.8;
+}
+.site .done {
+  font-size: 15px;
+  font-weight: 400;
+}
+.site .proto {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ---------- motion ---------- */
+.js .site .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.9s var(--ease),
+    transform 0.9s var(--ease);
+}
+.js .site .reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .js .site .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+@media (max-width: 820px) {
+  .site .say {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+}

@@ -1,0 +1,152 @@
+---
+/*
+  Contact: one quiet page in the site's system (src/styles/site.css). A
+  single form with a choice of what the note is about, and the social
+  handle beside it. The form is a prototype: it confirms on screen and
+  sends nothing until a form service is chosen. No email address is shown
+  yet; Marcy's is still to come.
+*/
+import Layout from "../layouts/Layout.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import "../styles/site.css";
+
+const fontsHref = "https://fonts.googleapis.com/css2?family=Gloock&display=swap";
+
+const kinds = [
+  { value: "detail", label: "My unexpected detail" },
+  { value: "question", label: "A question for a guest" },
+  { value: "guest", label: "Be a guest" },
+  { value: "other", label: "Something else" },
+];
+---
+
+<Layout
+  title="Contact, unexpected detail"
+  description="Send Unexpected Detail your own unexpected detail, a question for a guest, or a note for Marcy."
+>
+  <link rel="stylesheet" href={fontsHref} />
+  <main id="main" class="site contact">
+    <section class="spread contact-spread" aria-labelledby="contact-h">
+      <div class="wrap">
+        <div class="slabel"><span class="num">01</span><h1 id="contact-h">Contact</h1></div>
+        <div class="contact-grid">
+          <div class="contact-intro">
+            <p class="line">Everyone has one. What’s yours?</p>
+            <p class="note">
+              Send us your unexpected detail, a question you’d love to hear a guest answer, or a note for
+              Marcy. The next episode might start with it.
+            </p>
+            <dl class="reach">
+              <div>
+                <dt>Follow</dt>
+                <dd>@unexpecteddetail on Instagram and Facebook</dd>
+              </div>
+              <div>
+                <dt>Listen</dt>
+                <dd>Apple Podcasts, Spotify and YouTube, from December 2026</dd>
+              </div>
+            </dl>
+          </div>
+
+          <form class="contact-form" data-proto>
+            <fieldset class="seg">
+              <legend>This is about</legend>
+              {
+                kinds.map((k, i) => (
+                  <label>
+                    <input type="radio" name="kind" value={k.value} checked={i === 0} />
+                    <span>{k.label}</span>
+                  </label>
+                ))
+              }
+            </fieldset>
+            <div class="pair">
+              <label class="field">
+                <span>Name</span>
+                <input type="text" name="name" autocomplete="name" required />
+              </label>
+              <label class="field">
+                <span>Email</span>
+                <input type="email" name="email" autocomplete="email" required />
+              </label>
+            </div>
+            <label class="field">
+              <span>Message</span>
+              <textarea name="message" rows="5" placeholder="I once…" required></textarea>
+            </label>
+            <button class="btn-ink" type="submit">Send</button>
+            <p class="done" role="status" hidden>Got it. Thank you for sharing.</p>
+            <p class="proto">Preview: this form doesn’t send anything yet.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+    <SiteFooter />
+  </main>
+</Layout>
+
+<script>
+  document.documentElement.classList.add("js");
+  document.querySelectorAll<HTMLFormElement>("form[data-proto]").forEach((form) =>
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      form.querySelector<HTMLElement>(".done")!.hidden = false;
+      form.reset();
+    }),
+  );
+</script>
+
+<style>
+  .contact-spread {
+    min-height: calc(100svh - var(--nav-height) - 80px);
+    padding-top: clamp(48px, 7vw, 112px);
+  }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px clamp(40px, 7vw, 128px);
+    margin-top: clamp(56px, 8vw, 120px);
+  }
+  .contact-intro .note {
+    margin-top: 28px;
+  }
+  .reach {
+    margin: clamp(48px, 6vw, 88px) 0 0;
+    display: grid;
+    gap: 20px;
+    font-size: 15px;
+  }
+  .reach dt {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .reach dd {
+    margin: 4px 0 0;
+  }
+  .contact-form {
+    display: grid;
+    gap: 36px;
+    justify-items: start;
+    align-content: start;
+  }
+  .contact-form > .field,
+  .pair {
+    width: 100%;
+  }
+  .pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .contact-form .proto {
+    margin-top: -20px;
+  }
+  @media (max-width: 820px) {
+    .contact-grid,
+    .pair {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

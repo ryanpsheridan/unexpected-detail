@@ -44,20 +44,26 @@ Only when Ryan says the site goes public:
 ## Pages
 
 - `/`: the podcast's home page (round one of the site design).
+- `/contact`: the contact form (a prototype until a form service is chosen).
 - `/concept`: the final brand identity.
 - `/round-2`: round 06, the identity presentation with its live editor.
 - `/round-1`: rounds 01 to 05 of the identity exploration.
 
-The nav (`src/components/Nav.astro`) links all four.
+The nav (`src/components/Nav.astro`) links Home, Contact and Concept. The
+rounds are linked from the foot of the concept page.
 
-## Brand rules for the site
+## Design direction for the site
 
-From the November 2026 review with Marcy:
+From Ryan, and the November 2026 review with Marcy:
 
+- Super minimal, in the concept page's system, not the look of the deck and
+  one-pager PDFs. Paper, ink, hairlines, small section labels, one idea per
+  spread, and a lot of white space. The page tells the story in order.
+  Shared styles are in `src/styles/site.css`.
 - Gloock is for the logo, and for numbering and stats. Everything else is Geist.
-- Butter (`#E8CB6A`) does not read as text on light grounds. On light, text
-  accents use Honey (`#7D6118`, 5.5:1 on paper). Butter stays for dark grounds
-  and the dot of the i.
+- No gold text, on any ground: it isn't accessible. Butter (`#E8CB6A`) is
+  only the dot of the i. If an accent color is ever needed for text on light,
+  Honey (`#7D6118`, 5.5:1 on paper) is the darker secondary.
 - The home page opens dark and flips to light as the visitor scrolls into
   "Curiosity flips the frame", as one continuous change. The rest stays light.
 - Listener-facing pages leave out the conversation rhythm (the five beats),

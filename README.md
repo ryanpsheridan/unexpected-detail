@@ -3,6 +3,7 @@
 The brand identity site for the unexpected detail podcast. Astro, deployed on Vercel.
 
 - `/`: the podcast home page, round one
+- `/contact`: contact
 - `/concept`: the final identity
 - `/round-1`: rounds 01 to 05 of the exploration
 - `/round-2`: round 06, the presentation with its live editor
