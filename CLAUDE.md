@@ -71,6 +71,12 @@ From Ryan, and the November 2026 review with Marcy:
   at small sizes.
 - No eyebrow labels or section numbers above headings. Numbers appear only
   where they carry information, like episode numbers.
+- Type scale (in `src/styles/site.css`): Display, H1 to H6, L, M (the base,
+  16px) and S. Use the `.t-*` classes; don't invent one-off sizes.
+- The site's dark surface is `#241F1C`: the brand charcoal, a touch darker
+  and warmer. The home page opens dark, flips light at "Curiosity flips the
+  frame", and flips back to dark for the last section. Scroll-linked effects
+  never pin the page in a way that feels like the scroll stopped.
 - Product facts, audience and voice live in `PRODUCT.md`.
 - The home page opens dark and flips to light as the visitor scrolls into
   "Curiosity flips the frame", as one continuous change. The rest stays light.
