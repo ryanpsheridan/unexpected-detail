@@ -72,6 +72,15 @@ const here = Astro.url.pathname.replace(/\/$/, "") || "/";
     color: inherit;
     line-height: 0;
     --dot: var(--nav-dot, #b8890f);
+    /* A little larger at the top of the page, settling to its size once
+       the page scrolls. Scaled from its left edge, so nothing reflows. */
+    transform-origin: 0 50%;
+    transition:
+      transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+      opacity var(--duration-fast) var(--ease-standard);
+  }
+  :global(html:not(.nav-scrolled)) .logo {
+    transform: scale(1.22);
   }
 
   .logo:hover {
@@ -160,6 +169,7 @@ const here = Astro.url.pathname.replace(/\/$/, "") || "/";
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .logo,
     .site-nav,
     .hamburger span,
     .menu-overlay {
@@ -185,6 +195,11 @@ const here = Astro.url.pathname.replace(/\/$/, "") || "/";
   }
 
   hamburger.addEventListener("click", () => setMenu(!overlay.classList.contains("open")));
+
+  // The logo settles to its size once the page has scrolled a little.
+  const onScroll = () => document.documentElement.classList.toggle("nav-scrolled", scrollY > 24);
+  addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
   overlay.querySelectorAll(".menu-link").forEach((link) => link.addEventListener("click", () => setMenu(false)));
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && overlay.classList.contains("open")) {
