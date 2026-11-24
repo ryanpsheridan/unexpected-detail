@@ -281,9 +281,9 @@ const episodes = [
     const mr = marcy.getBoundingClientRect();
     return {
       // From the first pixel of scrolling, "flips" turns over and the page
-      // turns light with it, done within a fifth of a screen. Ease-out, so
+      // turns light with it, done within a third of a screen. Ease-out, so
       // it moves the moment the scroll does.
-      flip: 1 - (1 - clamp(scrollY / (vh * 0.2))) ** 3,
+      flip: 1 - (1 - clamp(scrollY / (vh * 0.3))) ** 3,
       words: clamp(fp / 0.36),
       rule: ease(clamp((fp - 0.42) / 0.2)),
       note: ease(clamp((fp - 0.62) / 0.16)),
