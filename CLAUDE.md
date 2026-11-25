@@ -73,7 +73,7 @@ From Ryan, and the November 2026 review with Marcy:
   `scripts/logo-from-svg.cjs` with the geometry copied verbatim; never
   rebuild it from text or bars, or edit its paths. Colors come from
   `--logo-fg` and `--logo-dot`, set per ground in `site.css` to the assets'
-  own colors. It sits top left in the nav (148px wide) and leads the
+  own colors. It sits top left in the nav (180px wide, one size, no shrink on scroll) and leads the
   footer. The favicon is the artwork's i; `og.png` is rendered from
   `logo-light-color.svg`. (`<Wordmark lines />` remains only on the
   concept and round pages, which show the construction.)

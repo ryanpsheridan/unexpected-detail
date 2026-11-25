@@ -58,34 +58,29 @@ const here = Astro.url.pathname.replace(/\/$/, "") || "/";
        on top would make the nav trail behind the page. */
   }
 
+  /* The same measure as the page content (.wrap: 1440px with the gutter
+     inside), so the logo and the menu line up with the content's edges at
+     every width. */
   .nav-inner {
     width: 100%;
+    max-width: calc(1440px - 2 * var(--page-padding, clamp(16px, 4.4vw, 64px)));
+    margin-inline: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
-  /* The artwork at 148px wide (40px tall), the size the lockup has always
-     had here. A little larger at the top of the page, settling to its size
-     once the page scrolls: scaled from its left edge, so nothing reflows,
-     and the artwork is vector, so it stays crisp at both sizes. */
+  /* The artwork at 180px wide (49px tall), one size at all times. */
   .logo {
     display: block;
     color: inherit;
     line-height: 0;
-    transform-origin: 0 50%;
-    transition:
-      transform var(--duration-moderate) var(--ease-emphasized),
-      opacity var(--duration-fast) var(--ease-standard);
+    transition: opacity var(--duration-fast) var(--ease-standard);
   }
   .logo :global(.ud-logo) {
-    width: 148px;
+    width: 180px;
     height: auto;
   }
-  :global(html:not(.nav-scrolled)) .logo {
-    transform: scale(1.22);
-  }
-
   .logo:hover {
     color: inherit;
     opacity: 0.7;
@@ -93,11 +88,11 @@ const here = Astro.url.pathname.replace(/\/$/, "") || "/";
 
   .hamburger {
     position: relative;
-    /* 48px to meet the touch target guideline; the negative margin keeps
-       the bars on the content edge. */
+    /* 48px to meet the touch target guideline; the negative margin (half
+       the space around the 20px bars) puts the bars on the content edge. */
     width: var(--control-md);
     height: var(--control-md);
-    margin-right: calc(var(--space-2) * -1);
+    margin-right: calc((var(--control-md) - 20px) / -2);
     background: none;
     border: none;
     color: inherit;
@@ -200,10 +195,6 @@ const here = Astro.url.pathname.replace(/\/$/, "") || "/";
 
   hamburger.addEventListener("click", () => setMenu(!overlay.classList.contains("open")));
 
-  // The logo settles to its size once the page has scrolled a little.
-  const onScroll = () => document.documentElement.classList.toggle("nav-scrolled", scrollY > 24);
-  addEventListener("scroll", onScroll, { passive: true });
-  onScroll();
   overlay.querySelectorAll(".menu-link").forEach((link) => link.addEventListener("click", () => setMenu(false)));
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && overlay.classList.contains("open")) {
