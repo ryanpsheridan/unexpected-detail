@@ -66,9 +66,20 @@ From Ryan, and the November 2026 review with Marcy:
   (`#B8890F`, 3:1 on paper) on light ones. If an accent color is ever needed
   for text on light, Honey (`#7D6118`, 5.5:1 on paper) is the darker secondary.
 - The primary logo is the staggered two-line wordmark with the falling line
-  set in the open space beside "detail" (`<Wordmark lines />`). It sits top
-  left in the nav, with half the strokes (`count={15}`) so the row stays open
-  at small sizes.
+  set in the open space beside "detail". It is final artwork: the supplied
+  SVGs are in `public/brand/` (dark = ink for light grounds, light = white
+  for dark grounds, "color" adds the yellow dot). On the site it is drawn
+  by `<Logo />`, generated from `logo-dark-color.svg` by
+  `scripts/logo-from-svg.cjs` with the geometry copied verbatim; never
+  rebuild it from text or bars, or edit its paths. Colors come from
+  `--logo-fg` and `--logo-dot`, set per ground in `site.css` to the assets'
+  own colors. It sits top left in the nav (148px wide) and leads the
+  footer. The favicon is the artwork's i; `og.png` is rendered from
+  `logo-light-color.svg`. (`<Wordmark lines />` remains only on the
+  concept and round pages, which show the construction.)
+- Motion: one system on the duration and easing tokens (see the note in
+  `site.css`). The falling line's fall is the only signature move; no
+  blur-ins, bounces or overshoot, and every page works with reduced motion.
 - No eyebrow labels or section numbers above headings. Numbers appear only
   where they carry information, like episode numbers.
 - Type scale (in `src/styles/site.css`): Display, H1 to H6, L, M (the base,

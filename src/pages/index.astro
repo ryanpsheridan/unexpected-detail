@@ -5,8 +5,8 @@
   on the type scale in src/styles/site.css.
 
   The story, top to bottom:
-  1. Dark. The falling line, full width, rises as a waveform, settles, and
-     one line tips over; "Curiosity flips the frame." rises in beneath it.
+  1. Dark. The falling line, full width, rises left to right and one line
+     tips over; "Curiosity flips the frame." rises in beneath it.
      From the first bit of scrolling, "flips" turns over like a card and the
      page turns light with it. Nothing pins.
   2. "A podcast built around what rarely makes the final edit." arrives
@@ -433,15 +433,16 @@ const episodes = [
     font-weight: 400;
     cursor: default;
   }
-  /* One sequence, about two seconds: the row rises left to right and
-     settles, the line tips, and the headline rises as it lands, the link
-     just behind. */
+  /* One sequence, under two seconds: the row rises left to right, the
+     line falls, and the headline arrives as it lands, the link just
+     behind. The fall is the one signature move on the page; everything
+     else is a plain fade and a short rise. */
   .js .home :is(.hero-h, .hero-go) {
     opacity: 0;
-    animation: ud-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) 1.45s forwards;
+    animation: ud-in 0.6s var(--ease-emphasized) 1.15s forwards;
   }
   .js .home .hero-go {
-    animation-delay: 1.62s;
+    animation-delay: 1.25s;
   }
 
   /* "flips": a card with the word on both faces. The scroll turns it over
@@ -465,49 +466,38 @@ const episodes = [
     transform: rotateX(calc(var(--fp) * 180deg - 180deg));
   }
 
-  /* The loader: the strokes rise to a waveform (heights from a sine of
-     their position), settle into an even row, then one tips over. */
+  /* The strokes rise from the baseline in one even sweep, left to right,
+     then one falls: it gathers speed like something tipping over and comes
+     to rest at 14 degrees, with no bounce. */
   .js .home .hero-lines span {
-    --h: calc(0.2 + 0.8 * sin(var(--x) * 41) * sin(var(--x) * 41));
-    animation: ud-wave 1.1s cubic-bezier(0.16, 1, 0.3, 1) calc(0.1s + var(--x) * 0.4s) both;
+    animation: ud-rise 0.7s var(--ease-emphasized) calc(0.1s + var(--x) * 0.3s) both;
   }
   .js .home .hero-lines .fall {
     transform: none;
     animation:
-      ud-wave 1.1s cubic-bezier(0.16, 1, 0.3, 1) calc(0.1s + var(--x) * 0.4s) both,
-      ud-tip 0.85s cubic-bezier(0.55, 0, 0.25, 1) 1.15s both;
+      ud-rise 0.7s var(--ease-emphasized) calc(0.1s + var(--x) * 0.3s) both,
+      ud-fall 0.7s cubic-bezier(0.55, 0, 0.3, 1) 0.85s both;
   }
-  @keyframes ud-wave {
-    0% {
+  @keyframes ud-rise {
+    from {
       scale: 1 0;
     }
-    45% {
-      scale: 1 var(--h);
-    }
-    100% {
-      scale: 1 1;
-    }
   }
-  @keyframes ud-tip {
-    0% {
+  @keyframes ud-fall {
+    from {
       rotate: 0deg;
     }
-    70% {
-      rotate: 15.5deg;
-    }
-    100% {
+    to {
       rotate: 14deg;
     }
   }
   @keyframes ud-in {
     from {
       opacity: 0;
-      filter: blur(10px);
-      translate: 0 0.15em;
+      translate: 0 12px;
     }
     to {
       opacity: 1;
-      filter: none;
       translate: none;
     }
   }
@@ -611,7 +601,7 @@ const episodes = [
     padding-block: 28px clamp(48px, 10vh, 96px);
     border-bottom: 1px solid var(--rule);
     opacity: 0.4;
-    transition: opacity 0.5s var(--ease);
+    transition: opacity var(--duration-slow) var(--ease-standard);
   }
   .home .trait.is-on,
   :root:not(.js) .home .trait {
@@ -673,7 +663,7 @@ const episodes = [
   /* Word by word, dim to full, with the scroll (after simplysheetdesign.com). */
   .js .home .lit-text .lw {
     color: color-mix(in srgb, var(--fg) 28%, transparent);
-    transition: color 0.2s ease;
+    transition: color var(--duration-fast) var(--ease-standard);
   }
   .js .home .lit-text .lw.on {
     color: var(--fg);
@@ -773,21 +763,16 @@ const episodes = [
     border-radius: 4px;
     overflow: hidden;
     background: color-mix(in srgb, var(--fg) 7%, var(--bg));
-    transition: background-color 0.35s var(--ease);
+    transition: background-color var(--duration-fast) var(--ease-standard);
   }
   .home .ep-art .num {
     font-size: clamp(22px, 2vw, 30px);
     color: var(--muted);
-    transition:
-      color 0.35s var(--ease),
-      scale 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: color var(--duration-fast) var(--ease-standard);
   }
   .home .ep-text {
     display: grid;
     gap: 4px;
-  }
-  .home .ep-title {
-    transition: translate 0.45s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .home .ep-guest,
   .home .ep-when {
@@ -797,20 +782,17 @@ const episodes = [
     display: grid;
     place-items: center;
     opacity: 0;
-    translate: -8px 0;
+    translate: -6px 0;
     transition:
-      opacity 0.3s var(--ease),
-      translate 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity var(--duration-fast) var(--ease-standard),
+      translate var(--duration-moderate) var(--ease-emphasized);
   }
   .home .ep:is(:hover, :focus-visible) .ep-art {
     background: var(--ud-charcoal);
   }
+  /* Hover: the tile goes dark and the arrow comes in. Nothing else moves. */
   .home .ep:is(:hover, :focus-visible) .ep-art .num {
     color: var(--ud-paper);
-    scale: 1.12;
-  }
-  .home .ep:is(:hover, :focus-visible) .ep-title {
-    translate: 6px 0;
   }
   .home .ep:is(:hover, :focus-visible) .ep-go {
     opacity: 1;
@@ -850,6 +832,10 @@ const episodes = [
     width: fit-content;
   }
 
+  /* Less motion: everything is in place from the start. Colors still
+     follow the scroll (the page still turns light), but nothing moves:
+     "flips" stays put, words and the note fade without rising, and the
+     panel is open. */
   @media (prefers-reduced-motion: reduce) {
     .js .home .hero-lines span,
     .js .home :is(.hero-h, .hero-go) {
@@ -860,16 +846,18 @@ const episodes = [
       animation: none;
       transform: rotate(14deg);
     }
-    .home .trait {
-      transition: none;
+    .home .ff-front {
+      transform: none;
     }
-    .home .ff {
-      transition: none;
+    .home .ff-back {
+      display: none;
     }
     .home .frame-h .w,
     .home .frame-note {
       translate: none;
-      rotate: none;
+    }
+    .home .float-panel {
+      clip-path: none;
     }
     .home .trait,
     .home .ep *,

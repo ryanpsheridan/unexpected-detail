@@ -31,7 +31,12 @@
   --nav-fg: var(--fg);
   --gutter: clamp(16px, 4.4vw, 64px);
   --page-padding: var(--gutter);
-  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  /* One motion system (tokens in src/data/tokens.ts): color and opacity
+     ease with --ease-standard; anything that moves decelerates with
+     --ease-emphasized. Hovers and fields --duration-fast (200ms), overlays
+     and small moves --duration-moderate (300ms), content reveals about
+     600ms. The falling line is the only signature move. */
+  --ease: var(--ease-emphasized);
 }
 :root:has(.site) body {
   background: var(--bg);
@@ -197,7 +202,7 @@
   font-size: 15px;
   font-weight: 400;
   border-bottom: 1px solid currentColor;
-  transition: opacity 0.2s ease;
+  transition: opacity var(--duration-fast) var(--ease-standard);
 }
 .site .go:hover {
   color: inherit;
@@ -229,7 +234,7 @@
   border-bottom: 1px solid var(--rule);
   border-radius: 0;
   padding: 10px 0 12px;
-  transition: border-color 0.2s ease;
+  transition: border-color var(--duration-fast) var(--ease-standard);
 }
 .site textarea {
   resize: vertical;
@@ -275,9 +280,9 @@
   font-size: 15px;
   font-weight: 400;
   transition:
-    background-color 0.2s ease,
-    color 0.2s ease,
-    border-color 0.2s ease;
+    background-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard);
 }
 .site .seg input:checked + span {
   background: var(--fg);
@@ -301,7 +306,7 @@
   font-size: 15px;
   font-weight: 500;
   cursor: pointer;
-  transition: opacity 0.2s ease;
+  transition: opacity var(--duration-fast) var(--ease-standard);
 }
 .site .btn-ink:hover {
   opacity: 0.8;
@@ -320,14 +325,19 @@
   opacity: 0;
   transform: translateY(18px);
   transition:
-    opacity 0.9s var(--ease),
-    transform 0.9s var(--ease);
+    opacity 0.6s var(--ease-standard),
+    transform 0.6s var(--ease-emphasized);
 }
 .js .site .reveal.is-in {
   opacity: 1;
   transform: none;
 }
 @media (prefers-reduced-motion: reduce) {
+  .site *,
+  .site *::before,
+  .site *::after {
+    transition-duration: 1ms !important;
+  }
   .js .site .reveal {
     opacity: 1;
     transform: none;
