@@ -364,7 +364,9 @@ const episodes = [
     --bg: color-mix(in srgb, var(--ud-paper) var(--pct), var(--ud-charcoal));
     --fg: color-mix(in srgb, var(--ud-ink) var(--pct), var(--ud-paper));
     --dot: color-mix(in srgb, var(--ud-mustard) var(--pct), var(--ud-butter));
-    --nav-dot: var(--dot);
+    /* The logo moves between the light and dark artwork's own colors. */
+    --logo-fg: color-mix(in srgb, #141414 var(--pct), #fff);
+    --logo-dot: color-mix(in srgb, #b8890f var(--pct), #eeca57);
   }
   /* No script: dark opening and close, light between, no word reveal. */
   :root:has(.site.home):not(.js) {
@@ -375,6 +377,8 @@ const episodes = [
     --bg: var(--ud-charcoal);
     --fg: var(--ud-paper);
     --muted: color-mix(in srgb, var(--ud-paper) 68%, transparent);
+    --logo-fg: #fff;
+    --logo-dot: #eeca57;
     background: var(--bg);
     color: var(--fg);
   }

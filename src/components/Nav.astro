@@ -1,16 +1,16 @@
 ---
 /*
-  The site nav, carried over from the portfolio: the wordmark on the left
-  (the staggered lockup, as in the concept page's "With the tagline" tile,
-  without the tagline), a menu button on the right, and a full-screen menu. Sticky, 64px tall
-  (--nav-height), so anything else sticky on a page offsets by it.
+  The site nav, carried over from the portfolio: the primary logo on the
+  left, drawn from the approved artwork (Logo.astro), a menu button on the
+  right, and a full-screen menu. Sticky, 64px tall (--nav-height), so
+  anything else sticky on a page offsets by it.
 
-  A page can recolor it with --nav-bg and --nav-fg (the home page does, so
-  the nav flips with the page from dark to light). Without them it sits on
-  the identity's paper (#faf9f6) in ink.
+  A page can recolor it with --nav-bg and --nav-fg, and the logo with
+  --logo-fg and --logo-dot (the home page does, so the nav flips with the
+  page from dark to light). Without them it sits on the identity's paper
+  (#faf9f6) in ink, with the logo in the dark artwork's own colors.
 */
-import Wordmark from "./Wordmark.astro";
-import "../styles/wordmark.css";
+import Logo from "./Logo.astro";
 
 const links = [
   { href: "/", label: "Home" },
@@ -22,7 +22,7 @@ const here = Astro.url.pathname.replace(/\/$/, "") || "/";
 
 <nav class="site-nav" aria-label="Site">
   <div class="nav-inner">
-    <a href="/" class="logo" aria-label="unexpected detail, home"><Wordmark size="22px" lines count={15} /></a>
+    <a href="/" class="logo" aria-label="unexpected detail, home"><Logo label="" /></a>
     <button type="button" class="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="site-menu">
       <span></span>
       <span></span>
@@ -65,19 +65,22 @@ const here = Astro.url.pathname.replace(/\/$/, "") || "/";
     align-items: center;
   }
 
-  /* The dot: butter on dark grounds, Mustard (#B8890F, 3:1 on paper) on
-     light. A page that changes ground sets --nav-dot to follow it. */
+  /* The artwork at 148px wide (40px tall), the size the lockup has always
+     had here. A little larger at the top of the page, settling to its size
+     once the page scrolls: scaled from its left edge, so nothing reflows,
+     and the artwork is vector, so it stays crisp at both sizes. */
   .logo {
     display: block;
     color: inherit;
     line-height: 0;
-    --dot: var(--nav-dot, #b8890f);
-    /* A little larger at the top of the page, settling to its size once
-       the page scrolls. Scaled from its left edge, so nothing reflows. */
     transform-origin: 0 50%;
     transition:
-      transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+      transform var(--duration-moderate) var(--ease-emphasized),
       opacity var(--duration-fast) var(--ease-standard);
+  }
+  .logo :global(.ud-logo) {
+    width: 148px;
+    height: auto;
   }
   :global(html:not(.nav-scrolled)) .logo {
     transform: scale(1.22);
@@ -127,7 +130,8 @@ const here = Astro.url.pathname.replace(/\/$/, "") || "/";
   :global(body.menu-open) .site-nav {
     background: var(--color-bg);
     color: var(--color-text);
-    --nav-dot: #b8890f;
+    --logo-fg: #141414;
+    --logo-dot: #b8890f;
   }
 
   .menu-overlay {

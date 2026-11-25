@@ -1,12 +1,16 @@
 ---
 /*
   The public site's footer, after the concept page's: one quiet row with a
-  hairline above. Reads --rule and --muted from site.css.
+  hairline above, led by the primary logo (the approved artwork, in the
+  ground's colors through --logo-fg and --logo-dot). Reads --rule and
+  --muted from site.css.
 */
+import Logo from "./Logo.astro";
 ---
 
 <footer class="site-foot">
   <div class="wrap foot-row">
+    <a href="/" class="foot-logo" aria-label="unexpected detail, home"><Logo label="" /></a>
     <p>Curiosity flips the frame.</p>
     <p class="muted">Apple Podcasts · Spotify · YouTube, from December 2026</p>
     <p class="muted">@unexpecteddetail</p>
@@ -23,6 +27,34 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 12px 32px;
+    align-items: flex-end;
+    gap: 16px 32px;
+  }
+  /* Smaller than the nav's, never under 124px wide, where the row of lines
+     still reads as lines. */
+  .foot-logo {
+    display: block;
+    line-height: 0;
+    margin-right: auto;
+    transition: opacity var(--duration-fast) var(--ease-standard);
+  }
+  .foot-logo:hover {
+    opacity: 0.7;
+  }
+  .foot-logo :global(.ud-logo) {
+    width: 124px;
+    height: auto;
+  }
+  .foot-row p {
+    line-height: 1.4;
+  }
+  @media (max-width: 820px) {
+    .foot-row {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .foot-logo {
+      margin-bottom: 8px;
+    }
   }
 </style>

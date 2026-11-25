@@ -23,7 +23,10 @@
   --muted: color-mix(in srgb, var(--fg) 62%, transparent);
   --rule: color-mix(in srgb, var(--fg) 16%, transparent);
   --dot: var(--ud-mustard);
-  --nav-dot: var(--dot);
+  /* The logo (Logo.astro) in the supplied artwork's own colors: the dark
+     artwork on light grounds, the light artwork on dark ones. */
+  --logo-fg: #141414;
+  --logo-dot: #b8890f;
   --nav-bg: var(--bg);
   --nav-fg: var(--fg);
   --gutter: clamp(16px, 4.4vw, 64px);
@@ -179,6 +182,8 @@
   --muted: color-mix(in srgb, var(--ud-paper) 68%, transparent);
   --rule: color-mix(in srgb, var(--ud-paper) 18%, transparent);
   --dot: var(--ud-butter);
+  --logo-fg: #fff;
+  --logo-dot: #eeca57;
   background: var(--bg);
   color: var(--fg);
 }
